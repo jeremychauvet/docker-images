@@ -1,0 +1,6 @@
+schemaVersion: "2.0.0"
+commandTests:
+  - name: "Check Terraform CLI version"
+    command: "terraform"
+    args: ["version"]
+    expectedOutput: ["Terraform v0.14.6"]
