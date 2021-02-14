@@ -1,3 +1,3 @@
-# template-showroom
+# Docker images
 
-This repository is a template to quickly start new showroom projects.
+Docker images used on my OSS projects.
