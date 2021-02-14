@@ -7,8 +7,8 @@ LABEL org.opencontainers.image.authors Jeremy Chauvet
 
 # Install Terraform
 RUN apt-get update && \
-apt-get install --no-install-recommends wget=1.19.4 unzip=6.00 -y && \
-wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -O terraform.zip && \
+apt-get install --no-install-recommends wget=1.20.3-1ubuntu1 unzip=6.0-25ubuntu1 -y && \
+wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip --no-check-certificate -O terraform.zip && \
 unzip terraform.zip && \
 mv terraform /usr/local/bin && \
 rm terraform.zip && \
@@ -18,5 +18,3 @@ apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN useradd --create-home vhugo
 WORKDIR /home/vhugo
 USER vhugo
-
-RUN terraform version
