@@ -1,0 +1,25 @@
+name: Docker
+
+on: push
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Docker Build & Push to GitHub Package
+        uses: opspresso/action-docker@master
+        with:
+          args: --docker
+        env:
+          USERNAME: jeremychauvet
+          PASSWORD: ${{ secrets.GH_PERSONAL_TOKEN }}
+          REGISTRY: "ghcr.io"
+          DOCKERFILE: "Dockerfile"
+          IMAGE_NAME: "jeremychauvet/terraform"
+          TAG_NAME: "0.14.6"
+          LATEST: "true"
