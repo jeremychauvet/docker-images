@@ -24,7 +24,7 @@ build-terraform:
 test-terraform:
 	@echo "[INFO] Starting Dockerfile linting step."
 	docker run --rm -i hadolint/hadolint:v1.22.1 < terraform/Dockerfile
-	@echo "[SUCCESS] Dockerfile linting success."
+	@echo "[INFO] Dockerfile linting success."
 	@echo "[INFO] Running UT tests on containers."
-	docker container run --rm -it -v ${PWD}/terraform/tests/container-structure-tests.yml:/tests.yml:ro -v /var/run/docker.sock:/var/run/docker.sock:ro $(DOCKER_TEST_IMAGE) test --image $(TERRAFORM_IMAGE_NAME) --config /tests.yml
-	@echo "[SUCCESS] UT tests success."
+	docker container run --rm -i -v ${PWD}/terraform/tests/container-structure-tests.yml:/tests.yml:ro -v /var/run/docker.sock:/var/run/docker.sock:ro $(DOCKER_TEST_IMAGE) test --image $(TERRAFORM_IMAGE_NAME) --config /tests.yml
+	@echo "[INFO] UT tests success."
