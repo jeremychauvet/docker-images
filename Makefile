@@ -6,10 +6,10 @@ DOCKER_TEST_IMAGE=gcr.io/gcp-runtimes/container-structure-test:v1.10.0
 validate:
 	pre-commit run --all-files
 
-build: build-terraform
+build: build-ubuntu build-terraform
 test: test-terraform
 lint: lint-terraform
-publish: publish-terraform
+publish: publish-ubuntu publish-terraform
 
 # Services steps.
 
