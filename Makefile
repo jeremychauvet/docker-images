@@ -13,6 +13,27 @@ publish: publish-terraform
 
 # Services steps.
 
+## Ubuntu.
+.PHONY: build-ubuntu lint-ubuntu test-ubuntu publish-ubuntu
+
+UBUNTU_IMAGE_NAME=ghcr.io/jeremychauvet/ubuntu:20.04
+
+build-ubuntu:
+	docker build -t $(UBUNTU_IMAGE_NAME) -f ubuntu/Dockerfile .
+
+lint-ubuntu:
+	@echo "[INFO] Starting Dockerfile linting step."
+	docker run --rm -i hadolint/hadolint:v1.22.1 < ubuntu/Dockerfile
+	@echo "[INFO] Dockerfile linting success."
+
+test-ubuntu:
+	@echo "[INFO] Running UT tests on containers."
+	docker container run --rm -i -v ${PWD}/ubuntu/tests/container-structure-tests.yml:/tests.yml:ro -v /var/run/docker.sock:/var/run/docker.sock:ro $(DOCKER_TEST_IMAGE) test --image $(UBUNTU_IMAGE_NAME) --config /tests.yml
+	@echo "[INFO] UT tests success."
+
+publish-ubuntu:
+	docker push $(UBUNTU_IMAGE_NAME)
+
 ## Terraform.
 .PHONY: build-terraform lint-terraform test-terraform publish-terraform
 
