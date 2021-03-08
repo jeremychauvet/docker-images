@@ -8,4 +8,3 @@ commandTests:
     command: "pre-commit"
     args: ["--version"]
     expectedOutput: ["pre-commit 2.10.1"]
-
