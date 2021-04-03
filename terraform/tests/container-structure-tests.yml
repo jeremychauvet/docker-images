@@ -3,7 +3,7 @@ commandTests:
   - name: "Check Terraform CLI version"
     command: "terraform"
     args: ["version"]
-    expectedOutput: ["Terraform v0.14.7"]
+    expectedOutput: ["Terraform v0.14.9"]
 
   - name: "Check tflint version"
     command: "tflint"
