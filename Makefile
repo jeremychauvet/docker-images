@@ -55,3 +55,25 @@ test-terraform:
 
 publish-terraform:
 	docker push $(TERRAFORM_IMAGE_NAME)
+
+## NodeJS.
+.PHONY: build-nodejs lint-nodejs publish-nodejs
+
+NODEJS_VERSION=14
+NODEJS_IMAGE_NAME=ghcr.io/jeremychauvet/nodejs:$(NODEJS_VERSION)
+
+build-nodejs:
+	docker build --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t $(NODEJS_IMAGE_NAME) -f nodejs/Dockerfile .
+
+lint-nodejs:
+	@echo "[INFO] Starting Dockerfile linting step."
+	docker run --rm -i hadolint/hadolint:v1.22.1 < nodejs/Dockerfile
+	@echo "[INFO] Dockerfile linting success."
+
+test-nodejs:
+	@echo "[INFO] Running UT tests on containers."
+	docker container run --rm -i -v ${PWD}/nodejs/tests/container-structure-tests.yml:/tests.yml:ro -v /var/run/docker.sock:/var/run/docker.sock:ro $(DOCKER_TEST_IMAGE) test --image $(NODEJS_IMAGE_NAME) --config /tests.yml
+	@echo "[INFO] UT tests success."
+
+publish-nodejs:
+	docker push $(NODEJS_IMAGE_NAME)

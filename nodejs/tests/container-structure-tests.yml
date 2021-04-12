@@ -1,0 +1,6 @@
+schemaVersion: "2.0.0"
+commandTests:
+  - name: "Check NodeJS version"
+    command: "node"
+    args: ["--version"]
+    expectedOutput: ["v14.16.1"]
