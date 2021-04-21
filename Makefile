@@ -37,7 +37,7 @@ publish-ubuntu:
 ## Terraform.
 .PHONY: build-terraform lint-terraform test-terraform publish-terraform
 
-TERRAFORM_VERSION=0.14.9
+TERRAFORM_VERSION=0.15.0
 TERRAFORM_IMAGE_NAME=ghcr.io/jeremychauvet/terraform:$(TERRAFORM_VERSION)
 
 build-terraform:
