@@ -41,7 +41,7 @@ TERRAFORM_VERSION=0.15.0
 TERRAFORM_IMAGE_NAME=ghcr.io/jeremychauvet/terraform:$(TERRAFORM_VERSION)
 
 build-terraform:
-	docker build --build-arg TERRAFORM_VERSION=$(TERRAFORM_VERSION) -t $(TERRAFORM_IMAGE_NAME) -f terraform/Dockerfile .
+	docker build --cache-from $(UBUNTU_IMAGE_NAME) --build-arg TERRAFORM_VERSION=$(TERRAFORM_VERSION) -t $(TERRAFORM_IMAGE_NAME) -f terraform/Dockerfile .
 
 lint-terraform:
 	@echo "[INFO] Starting Dockerfile linting step."
@@ -63,7 +63,7 @@ NODEJS_VERSION=14
 NODEJS_IMAGE_NAME=ghcr.io/jeremychauvet/nodejs:$(NODEJS_VERSION)
 
 build-nodejs:
-	docker build --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t $(NODEJS_IMAGE_NAME) -f nodejs/Dockerfile .
+	docker build --cache-from $(UBUNTU_IMAGE_NAME) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t $(NODEJS_IMAGE_NAME) -f nodejs/Dockerfile .
 
 lint-nodejs:
 	@echo "[INFO] Starting Dockerfile linting step."
@@ -77,3 +77,19 @@ test-nodejs:
 
 publish-nodejs:
 	docker push $(NODEJS_IMAGE_NAME)
+
+## Ansible.
+.PHONY: build-ansible lint-ansible publish-ansible
+
+ANSIBLE_IMAGE_NAME=ghcr.io/jeremychauvet/ansible:latest
+
+build-ansible:
+	docker build --cache-from $(UBUNTU_IMAGE_NAME) -t $(ANSIBLE_IMAGE_NAME) -f ansible/Dockerfile .
+
+lint-ansible:
+	@echo "[INFO] Starting Dockerfile linting step."
+	docker run --rm -i hadolint/hadolint:v1.22.1 < ansible/Dockerfile
+	@echo "[INFO] Dockerfile linting success."
+
+publish-ansible:
+	docker push $(ANSIBLE_IMAGE_NAME)
