@@ -3,12 +3,12 @@ commandTests:
   - name: "Check Terraform CLI version"
     command: "terraform"
     args: ["version"]
-    expectedOutput: ["Terraform v0.14.9"]
+    expectedOutput: ["Terraform v0.15.0"]
 
   - name: "Check tflint version"
     command: "tflint"
     args: ["--version"]
-    expectedOutput: ["TFLint version 0.25.0"]
+    expectedOutput: ["TFLint version 0.27.0"]
 
   - name: "Check terraform-docs version"
     command: "/home/vhugo/bin/terraform-docs"
